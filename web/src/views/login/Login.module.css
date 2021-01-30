@@ -1,0 +1,13 @@
+.page{
+    margin: 200px auto;
+}
+.title{
+    font-size: 36px;
+    margin-left: 23px;
+    margin-bottom: 51px;
+    font-weight: bold;
+    color: #84b208;
+}
+.ant-form{
+    width: 400px;
+}

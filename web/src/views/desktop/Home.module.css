@@ -1,0 +1,14 @@
+.page{
+    height: 100%;
+}
+
+.logo {
+    line-height: 60px;
+}
+.logo img{
+    height: 60px;
+}
+
+.fullscreen{
+    height: 88vh;
+}
