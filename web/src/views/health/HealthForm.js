@@ -1,6 +1,6 @@
 import React from 'react';
 import {save} from "../../api";
-import {Button, Col, Form, Input, Modal, Row, Space, PageHeader} from "antd";
+import {Button, Col, Form, Input, Modal, Row, Radio,Space, PageHeader,InputNumber} from "antd";
 import { PlusCircleOutlined, SearchOutlined } from '@ant-design/icons';
 import './Health.css'
 
@@ -69,8 +69,17 @@ export default function HealthForm(props) {
             <Form.Item label="Name" name="name" rules={[{required: true, message: 'Please input!'}]}>
               <Input />
             </Form.Item>
-            <Form.Item label="Age" name="age" rules={[{required: true, message: 'Please input!'}]}>
-              <Input />
+            <Form.Item name="sex" label="Sex">
+              <Radio.Group>
+                <Radio value="male">Male</Radio>
+                <Radio value="female">Female</Radio>
+              </Radio.Group>
+            </Form.Item>
+            <Form.Item label="Age" name="age" rules={[{ type: 'number', min: 0, max: 99 }]}>
+              <InputNumber />
+            </Form.Item>
+            <Form.Item label="Eyesight" name="eyesight" rules={[{required: true, message: 'Please input!'}]}>
+              <Input style={{ width: 100 }}/>
             </Form.Item>
             <Form.Item label="Stature(cm)" name="stature" rules={[{required: true, message: 'Please input!'}]}>
               <Input />
@@ -85,6 +94,9 @@ export default function HealthForm(props) {
               <Input />
             </Form.Item>
             <Form.Item label="Blood Fat" name="bloodFat" rules={[{required: true, message: 'Please input!'}]}>
+              <Input />
+            </Form.Item>
+            <Form.Item label="Cholesterol" name="cholesterol" rules={[{required: true, message: 'Please input!'}]}>
               <Input />
             </Form.Item>
 
