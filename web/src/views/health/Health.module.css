@@ -1,0 +1,10 @@
+.search-form {
+    padding: 24px;
+    background: #ff6521;
+    /*border: 1px solid #d9d9d9;*/
+    border-radius: 2px;
+    margin-bottom: 20px;
+}
+.report th,.report td{
+    padding: 10px;
+}
