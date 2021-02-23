@@ -5,6 +5,41 @@
     border-radius: 2px;
     margin-bottom: 20px;
 }
+
+.analysis{
+    margin-top: 20px;
+    border: solid;
+}
+.analysis .title{
+    background-color: rgb(214,235,255);
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 600;
+}
+.analysis .body{
+    background-color: rgb(241,248,255);
+    padding: 10px;
+}
+
+.analysis .dot{
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    border-radius: 50%;
+    background: darkred;
+    margin-right: 10px;
+}
+
+.analysis .text{
+    line-height: 20px;
+}
+
+.report{
+}
 .report th,.report td{
     padding: 10px;
+}
+
+.center{
+    text-align:center;
 }
