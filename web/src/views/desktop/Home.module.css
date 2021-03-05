@@ -2,13 +2,16 @@
     height: 100%;
 }
 
-.logo {
-    line-height: 60px;
+.header{
+    background: url(../../assets/image/logo1.png) 0% 18% / cover no-repeat;
+    padding-right: 0; /*override antd style*/
 }
-.logo img{
-    height: 60px;
-}
-
 .fullscreen{
     height: 88vh;
+}
+
+.text{
+    line-height: 90vh;
+    font-size: 40px;
+    font-weight: 600;
 }

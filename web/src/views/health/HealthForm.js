@@ -4,15 +4,13 @@ import {Button, Col, Form, Input, Modal, Row, Radio,Space, PageHeader,InputNumbe
 import { PlusCircleOutlined, SearchOutlined } from '@ant-design/icons';
 import styles from './Health.module.css'
 
+// 健康数据表单
 export default function HealthForm(props) {
-  const searchForm = {
-    test:'dddddd'
-  }
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [form] = Form.useForm(); // FormInstance
 
-  const search = () => {
-    props.loadTable(searchForm)
+  const search = (values) => {
+    props.loadTable(values)
   }
   const showModal = () => {
     form.resetFields()
@@ -51,17 +49,17 @@ export default function HealthForm(props) {
   return (
       <>
         <PageHeader className="site-page-header" title="Health Data" subTitle="Input condition to query your health report"/>
-        <Form name="advanced_search" className={styles.searchForm}>
+        <Form name="advanced_search" className={styles.searchForm} onFinish={search}>
           <Row gutter={24}>
             <Col span={6} key={1} offset={1}>
-              <Form.Item name="" label="Report No">
+              <Form.Item name="_id" label="Report No">
                 <Input placeholder=""/>
               </Form.Item>
             </Col>
 
             <Col span={8}>
               <Space>
-                <Button type="primary" icon={<SearchOutlined />} onClick={search}>Query</Button>
+                <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>Query</Button>
                 <Button type="primary" icon={<PlusCircleOutlined />} onClick={showModal}>Add</Button>
               </Space>
             </Col>

@@ -42,14 +42,14 @@ export default class HealthList extends React.Component {
     {title: 'Name', dataIndex: 'name',key: 'name'},
     {title: 'Age', dataIndex: 'age', key: 'age',},
     {title: 'Sex', dataIndex: 'sex', key: 'sex',},
-    {title: 'Smoke', dataIndex: 'smoke', key: 'smoke',},
-    {title: 'Stature(cm)', dataIndex: 'stature', key: 'stature',},
-    {title: 'Weight(kg)', dataIndex: 'weight', key: 'weight',},
-    {title: 'High Blood Pressure', dataIndex: 'high_blood_pressure', key: 'high_blood_pressure',},
-    {title: 'Low Blood Pressure', dataIndex: 'low_blood_pressure', key: 'low_blood_pressure',},
-    {title: 'Cholesterol', dataIndex: 'cholesterol', key: 'cholesterol',},
-    {title: 'HDL-C', dataIndex: 'hdlc', key: 'hdlc',},
-    {title: 'SBP', dataIndex: 'sbp', key: 'sbp',},
+    // {title: 'Smoke', dataIndex: 'smoke', key: 'smoke',},
+    // {title: 'Stature(cm)', dataIndex: 'stature', key: 'stature',},
+    // {title: 'Weight(kg)', dataIndex: 'weight', key: 'weight',},
+    // {title: 'High Blood Pressure', dataIndex: 'high_blood_pressure', key: 'high_blood_pressure',},
+    // {title: 'Low Blood Pressure', dataIndex: 'low_blood_pressure', key: 'low_blood_pressure',},
+    // {title: 'Cholesterol', dataIndex: 'cholesterol', key: 'cholesterol',},
+    // {title: 'HDL-C', dataIndex: 'hdlc', key: 'hdlc',},
+    // {title: 'SBP', dataIndex: 'sbp', key: 'sbp',},
     {title: 'Create Time', dataIndex: 'create_time', key: 'create_time',render: state => (
           <>
               {
@@ -66,7 +66,11 @@ export default class HealthList extends React.Component {
           <HealthForm api={this.api} loadTable={this.loadTable}/>
           <Table rowKey="_id" columns={this.columns} dataSource={this.state.data}/>
 
-          <Modal width={800} style={{top:20}} title="" visible={this.state.isModalVisible} onCancel={()=>{this.setState({isModalVisible:false});}}>
+          <Modal width={800} style={{top:20}}
+                 visible={this.state.isModalVisible}
+                 onCancel={()=>{this.setState({isModalVisible:false});}}
+                 onOk={()=>{this.setState({isModalVisible:false});}}
+          >
             <div className={styles.report}>
               <h1 className={styles.center}>Student Health Report</h1>
               <table border="1" style={{

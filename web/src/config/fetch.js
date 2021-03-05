@@ -3,7 +3,9 @@ import axios from 'axios'
 const baseUrl = 'http://localhost:8080/mongo'
 export default async (url = '', data = {}, type = 'GET') => {
   type = type.toUpperCase();
-  url = baseUrl + url;
+
+  if(url.indexOf('http') == -1)
+    url = baseUrl + url;
 
   let xhr
   if (type == 'GET') {

@@ -1,7 +1,8 @@
 import React from 'react';
 import {Layout, Menu, Breadcrumb, Button, Row, Col} from 'antd';
-import {UserOutlined, LaptopOutlined, LineChartOutlined,ExperimentOutlined} from '@ant-design/icons';
+import {LogoutOutlined, LaptopOutlined, LineChartOutlined,ExperimentOutlined} from '@ant-design/icons';
 import HealthList from "../health/HealthList";
+import Report from "../report/Report";
 import styles from './Home.module.css';
 import logo from '../../assets/image/logo.png';
 
@@ -25,12 +26,14 @@ export default class Home extends React.Component {
   getPage() {
     if (this.state.menuKey == 'menu1') {
       return (
-          <HealthList></HealthList>
+          <HealthList />
       )
-    } else {
+    } else if (this.state.menuKey == 'menu2'){
       return (
-          <div>sssssssssss</div>
+          <Report />
       )
+    }else{
+      return <span className={styles.text}>Welcome To Use Health Management System</span>
     }
   }
 
@@ -38,21 +41,16 @@ export default class Home extends React.Component {
     return (
         <div>
           <Layout className={styles.page}>
-            <Header className="header">
+            <Header className={styles.header}>
               <Row>
-                <Col span={4}>
-                  <div className={styles.logo}>
-                    <img src={logo}/>
-                  </div>
-                </Col>
-                <Col span={4} offset={16}>
-                  <span style={{color:'#fff'}}>Welcome~</span>
-                  <Button type="link" onClick={this.logoutClick.bind(this)}>Exit</Button>
+                <Col span={3} offset={21}>
+                  <span style={{color:'#fff', fontWeight:'600'}}>Welcome~</span>
+                  <Button icon={<LogoutOutlined />} style={{color:'#fff', fontWeight:'600'}} type="link" onClick={this.logoutClick.bind(this)}>Exit</Button>
                 </Col>
               </Row>
             </Header>
             <Layout>
-              <Sider width={220} className="site-layout-background">
+              <Sider width={220} >
                 <Menu
                     theme="dark"
                     mode="inline"

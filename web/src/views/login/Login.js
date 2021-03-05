@@ -7,10 +7,10 @@ import {login} from "../../api";
 
 const layout = {
   labelCol: {
-    span: 8,
+    span: 10,
   },
   wrapperCol: {
-    span: 16,
+    span: 14,
   },
 };
 const tailLayout = {
@@ -46,12 +46,12 @@ export default class Login extends React.Component{
   render() {
     return (
         <div className={styles.page}>
-          <Row>
+          <Row gutter={16}>
             <Col span={4}></Col>
-            <Col span={8}>
+            <Col span={10}>
               <img src={logo}/>
             </Col>
-            <Col span={12}>
+            <Col span={10}>
               <Row>
                 <span className={styles.title}>Student Health System</span>
               </Row>
