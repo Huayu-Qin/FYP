@@ -18,9 +18,9 @@ export function bmiProposal(bmi) {
 }
 
 export function heartDiseaseProposal(score) {
-  return "heartDisease"
+  return "Coronary heart disease was the number one cause of death worldwide in 2013. With advances in medical technology, the probability of developing the disease is now significantly lower, but prevention of coronary heart disease is an integral part of our healthy lives"
 }
 
 export function bloodPressureProposal(pressure) {
-  return "bloodPressure"
+  return "Hypertension is very common in young people and is thought to pose a risk of developing other diseases in the long term, so preventing it is of great importance"
 }
