@@ -1,8 +1,9 @@
 import React from 'react';
 import {Layout, Menu, Breadcrumb, Button, Row, Col} from 'antd';
-import {LogoutOutlined, LaptopOutlined, LineChartOutlined,ExperimentOutlined} from '@ant-design/icons';
+import {MessageOutlined, LogoutOutlined, LaptopOutlined, LineChartOutlined,ExperimentOutlined} from '@ant-design/icons';
 import HealthList from "../health/HealthList";
 import Report from "../report/Report";
+import Chat from "../chat/Chat"
 import styles from './Home.module.css';
 import logo from '../../assets/image/logo.png';
 
@@ -31,6 +32,10 @@ export default class Home extends React.Component {
     } else if (this.state.menuKey == 'menu2'){
       return (
           <Report />
+      )
+    }else if (this.state.menuKey == 'menu3'){
+      return (
+          <Chat />
       )
     }else{
       return <span className={styles.text}>Welcome To Use Health Management System</span>
@@ -64,6 +69,9 @@ export default class Home extends React.Component {
                     </Menu.Item>
                     <Menu.Item key="menu2" icon={<LineChartOutlined />} onClick={this.menuItemOnClick.bind(this)}>
                       COVID-19 Analysis
+                    </Menu.Item>
+                    <Menu.Item key="menu3" icon={<MessageOutlined />} onClick={this.menuItemOnClick.bind(this)}>
+                      Online Service
                     </Menu.Item>
                   </SubMenu>
                   {/*<SubMenu key="sub2" icon={<UserOutlined/>} title="subnav 2">
