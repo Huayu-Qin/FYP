@@ -33,6 +33,9 @@
 .analysis .text{
     line-height: 20px;
 }
+.analysis .text span{
+    margin:4px;
+}
 
 .report{
 }
@@ -42,4 +45,7 @@
 
 .center{
     text-align:center;
+}
+.red{
+    color:red;
 }

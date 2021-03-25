@@ -37,6 +37,7 @@ export default class Login extends React.Component{
     const res = await login(param)
     if(res.code == 0){
       message.success(res.message);
+      sessionStorage.setItem("username", param.username)
       this.props.history.push("/home");
     }else{
       message.error(res.message);

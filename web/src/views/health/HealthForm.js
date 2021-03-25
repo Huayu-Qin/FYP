@@ -21,7 +21,8 @@ export default function HealthForm(props) {
     try {
       const data = await form.validateFields();
       const formData = {
-        url: props.api.action
+        url: props.api.action,
+        username: sessionStorage.getItem("username")
       }
       Object.assign(formData, data)
       setIsModalVisible(false);

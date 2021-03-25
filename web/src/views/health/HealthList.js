@@ -26,11 +26,13 @@ export default class HealthList extends React.Component {
   // 使用arrow function，避免this作用域null
   loadTable = async (params = {}) => {
     params.url = this.api.action
+    params.username = sessionStorage.getItem("username")
     const res = await findList(params)
     console.log(res)
     this.setState(res);
   }
   columns = [
+    {title: 'Id', render:(text,record,index) => `${index+1}` },
     {title: 'Report No', dataIndex: '_id', key: '_id',render: (text, record, index) => (
           <>
             <Tag color="green" key={text}>
@@ -64,7 +66,7 @@ export default class HealthList extends React.Component {
     return (
         <>
           <HealthForm api={this.api} loadTable={this.loadTable}/>
-          <Table rowKey="_id" columns={this.columns} dataSource={this.state.data}/>
+          <Table rowKey="_id" columns={this.columns} dataSource={this.state.data} pagination={ {pageSize: 7} }/>
 
           <Modal width={800} style={{top:20}}
                  visible={this.state.isModalVisible}
@@ -122,7 +124,10 @@ export default class HealthList extends React.Component {
                 <div className={styles.body}>
                   <div>
                     <span className={styles.dot}></span>
-                    <span className={styles.text}>BMI:{this.state.record.bmi}</span>
+                    <span className={styles.text}>
+                      <span>BMI:</span>
+                      <span className={styles.red}>{this.state.record.bmi}</span>
+                    </span>
                   </div>
                   <div style={{display:'flex'}}>
                     <table border="0" style={{borderCollapse: 'collapse', width:'50%', textAlign:'center',}}>
@@ -158,7 +163,11 @@ export default class HealthList extends React.Component {
                 <div className={styles.body}>
                   <div>
                     <span className={styles.dot}></span>
-                    <span className={styles.text}>Total score:{this.state.record.heartDiseaseScore}</span>
+                    <span className={styles.text}>
+                      <span>Total score:</span>
+                      <span className={styles.red}>{this.state.record.heart_disease_score}</span>
+                      <span>Risk: </span>
+                      <span className={styles.red}>{this.state.record.heart_disease_probability}</span></span>
                   </div>
                   <div style={{display:'flex'}}>
                     <table border="0" style={{borderCollapse: 'collapse', width:'50%', textAlign:'center',}}>
@@ -194,7 +203,10 @@ export default class HealthList extends React.Component {
                 <div className={styles.body}>
                   <div>
                     <span className={styles.dot}></span>
-                    <span className={styles.text}>Blood Pressure:{this.state.record.low_blood_pressure}~{this.state.record.high_blood_pressure}</span>
+                    <span className={styles.text}>
+                      <span>Blood Pressure:</span>
+                      <span className={styles.red}>{this.state.record.low_blood_pressure}~{this.state.record.high_blood_pressure}</span>
+                    </span>
                   </div>
                   <div style={{display:'flex'}}>
                     <table border="0" style={{borderCollapse: 'collapse', width:'50%', textAlign:'center',}}>
