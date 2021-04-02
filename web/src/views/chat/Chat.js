@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input } from 'antd';
+import { Button,Input } from 'antd';
 import styles from './Chat.module.css'
 import otherIcon from '../../assets/image/other.png';
 import meIcon from '../../assets/image/me.png';
@@ -16,6 +16,8 @@ export default function Chat(props) {
   const { TextArea } = Input;
   const [historyMessage,putMessage] = React.useState([]);
   const [message, setMessage] = React.useState("");
+  const [showChatWindow, openChatWindow] = React.useState(false);
+
   // historyMessage.push({id: 1, style: 'other', message: '3333333'})
   // historyMessage.push({id: 2, style: 'me', message: '222222222'})
 
@@ -70,21 +72,33 @@ export default function Chat(props) {
     setMessage('')
   }
 
-  return (
-      <div className={styles.chat}>
-        <div className={styles.chatHeader}>Welcome to chat!</div>
-        <div id={"chat"} className={styles.chatContent}>
-          <ul>
-            {li}
-          </ul>
-        </div>
-        <div className={styles.chatInput}>
-          <TextArea rows={3} value={message} onChange={e=> setMessage(e.target.value)}/>
-        </div>
-        <div className={styles.chatFooter}>
-          <button className={styles.sendBtn} onClick={onSend}>Send</button>
-        </div>
+  const ChatWindow = () => {
+    return <div className={styles.chat}>
+      <div className={styles.chatHeader}>Welcome to chat!</div>
+      <div id={"chat"} className={styles.chatContent}>
+        <ul>
+          {li}
+        </ul>
       </div>
+      <div className={styles.chatInput}>
+        <TextArea rows={3} value={message} onChange={e=> setMessage(e.target.value)}/>
+      </div>
+      <div className={styles.chatFooter}>
+        <button className={styles.sendBtn} onClick={onSend}>Send</button>
+      </div>
+    </div>
+  }
+  const ButtonTip = () => {
+    return <Button className={styles.openBtn} onClick={()=>{openChatWindow(true)}} type="primary" danger>
+      Online Chat
+    </Button>
+  }
+
+  let content = showChatWindow ? <ChatWindow /> : <ButtonTip/>
+  return (
+      <>
+        {content}
+      </>
   )
 }
 

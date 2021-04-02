@@ -1,9 +1,10 @@
 import React from 'react';
 import {save} from "../../api";
-import {Button, Col, Form, Input, Modal, Row, Radio,Space, PageHeader,InputNumber} from "antd";
+import {DatePicker, Button, Col, Form, Input, Modal, Row, Radio,Space, PageHeader,InputNumber} from "antd";
 import { PlusCircleOutlined, SearchOutlined } from '@ant-design/icons';
 import styles from './Health.module.css'
 
+const { RangePicker } = DatePicker;
 // 健康数据表单
 export default function HealthForm(props) {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
@@ -51,10 +52,10 @@ export default function HealthForm(props) {
       <>
         <PageHeader className="site-page-header" title="Health Data" subTitle="Input condition to query your health report"/>
         <Form name="advanced_search" className={styles.searchForm} onFinish={search}>
-          <Row gutter={24}>
-            <Col span={6} key={1} offset={1}>
-              <Form.Item name="_id" label="Report No">
-                <Input placeholder=""/>
+          <Row gutter={6}>
+            <Col span={10} key={1} offset={1}>
+              <Form.Item name="createTimeArray" label="Time Scope">
+                <RangePicker showTime/>
               </Form.Item>
             </Col>
 
