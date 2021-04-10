@@ -1,10 +1,11 @@
 import React from 'react';
 import {Layout, Menu, Breadcrumb, Button, Row, Col} from 'antd';
-import {MessageOutlined, LogoutOutlined, LaptopOutlined, LineChartOutlined,ExperimentOutlined} from '@ant-design/icons';
+import {UserOutlined, MessageOutlined, LogoutOutlined, LaptopOutlined, LineChartOutlined,ExperimentOutlined} from '@ant-design/icons';
 import HealthList from "../health/HealthList";
 import Report from "../report/Report";
 import Chat from "../chat/Chat"
 import Line from "../chart/Line"
+import UserList from "../user/UserList"
 import styles from './Home.module.css';
 import logo from '../../assets/image/logo.png';
 
@@ -15,6 +16,8 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {} //状态管理
+    this.nickname = sessionStorage.getItem("nickname")
+    this.usertype = sessionStorage.getItem("usertype")
   }
 
   menuItemOnClick(event) {
@@ -42,6 +45,10 @@ export default class Home extends React.Component {
       return (
           <Line />
       )
+    }else if (this.state.menuKey == 'menu5'){
+      return (
+          <UserList />
+      )
     }else{
       return <span className={styles.text}>Welcome To Use Health Management System</span>
     }
@@ -53,8 +60,8 @@ export default class Home extends React.Component {
           <Layout className={styles.page}>
             <Header className={styles.header}>
               <Row>
-                <Col span={3} offset={21}>
-                  <span style={{color:'#fff', fontWeight:'600'}}>Welcome~</span>
+                <Col span={5} offset={19}>
+                  <span style={{color:'#fff', fontWeight:'600'}}>Welcome {this.nickname}({this.usertype})</span>
                   <Button icon={<LogoutOutlined />} style={{color:'#fff', fontWeight:'600'}} type="link" onClick={this.logoutClick.bind(this)}>Exit</Button>
                 </Col>
               </Row>
@@ -69,6 +76,9 @@ export default class Home extends React.Component {
                     style={{height: '100%', borderRight: 0}}
                 >
                   <SubMenu key="sub1" icon={<LaptopOutlined/>} title="Menu">
+                    <Menu.Item key="menu5" icon={<UserOutlined />} onClick={this.menuItemOnClick.bind(this)}>
+                      User Manage
+                    </Menu.Item>
                     <Menu.Item key="menu1" icon={<ExperimentOutlined />} onClick={this.menuItemOnClick.bind(this)}>
                       Health Check
                     </Menu.Item>

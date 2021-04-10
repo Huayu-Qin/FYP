@@ -61,7 +61,7 @@ export default function HealthForm(props) {
 
             <Col span={8}>
               <Space>
-                <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>Query</Button>
+                <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>Search</Button>
                 <Button type="primary" icon={<PlusCircleOutlined />} onClick={showModal}>Add</Button>
               </Space>
             </Col>
