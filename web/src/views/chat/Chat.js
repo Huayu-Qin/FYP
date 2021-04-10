@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button,Input } from 'antd';
+import {Button, Form, Input} from 'antd';
 import styles from './Chat.module.css'
 import otherIcon from '../../assets/image/other.png';
 import meIcon from '../../assets/image/me.png';
@@ -14,10 +14,9 @@ socket.onerror = function(event) {
 
 export default function Chat(props) {
   const { TextArea } = Input;
+  const [form] = Form.useForm();
   const [historyMessage,putMessage] = React.useState([]);
-  const [message, setMessage] = React.useState("");
   const [showChatWindow, openChatWindow] = React.useState(false);
-
   // historyMessage.push({id: 1, style: 'other', message: '3333333'})
   // historyMessage.push({id: 2, style: 'me', message: '222222222'})
 
@@ -48,6 +47,9 @@ export default function Chat(props) {
     )
   })
 
+
+  const onMessageInput = e => {
+  }
   const scrollBottom = () => {
     const chatContentDiv = document.querySelector("#chat")
     chatContentDiv.scrollTop = chatContentDiv.scrollHeight
@@ -63,13 +65,15 @@ export default function Chat(props) {
   }
   const onSend = () => {
     scrollBottom()
+    const message = form.getFieldValue('message')
+    console.log(message)
+    console.log(form.getFieldsValue())
     render('me', message)
     socket.send(JSON.stringify({
       clientId,
       message
     }))
-
-    setMessage('')
+    form.resetFields()
   }
 
   const ChatWindow = () => {
@@ -81,7 +85,12 @@ export default function Chat(props) {
         </ul>
       </div>
       <div className={styles.chatInput}>
-        <TextArea rows={3} value={message} onChange={e=> setMessage(e.target.value)}/>
+        <Form form={form}>
+          <Form.Item name="message" label="">
+            <TextArea rows={3}/>
+          </Form.Item>
+
+        </Form>
       </div>
       <div className={styles.chatFooter}>
         <button className={styles.sendBtn} onClick={onSend}>Send</button>
