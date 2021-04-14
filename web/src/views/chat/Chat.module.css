@@ -68,6 +68,20 @@
     right: 0;
     cursor: pointer;
 }
+.backBtn{
+    background-color: #fa9442;
+    line-height: 32px;
+    color: #fff;
+    border-radius: 3px;
+    height: 32px;
+    font: 14px Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
+    border: none;
+    outline: none;
+    padding: 0 20px;
+    position: absolute;
+    right: 89px;
+    cursor: pointer;
+}
 
 .other{
     display: flex;

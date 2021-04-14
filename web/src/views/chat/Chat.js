@@ -93,6 +93,7 @@ export default function Chat(props) {
         </Form>
       </div>
       <div className={styles.chatFooter}>
+        <button className={styles.backBtn} onClick={e=>{openChatWindow(false)}}>Back</button>
         <button className={styles.sendBtn} onClick={onSend}>Send</button>
       </div>
     </div>

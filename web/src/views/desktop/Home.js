@@ -1,5 +1,5 @@
 import React from 'react';
-import {Layout, Menu, Breadcrumb, Button, Row, Col} from 'antd';
+import {Layout, Menu, Breadcrumb, Button, Row, Col, message} from 'antd';
 import {UserOutlined, MessageOutlined, LogoutOutlined, LaptopOutlined, LineChartOutlined,ExperimentOutlined} from '@ant-design/icons';
 import HealthList from "../health/HealthList";
 import Report from "../report/Report";
@@ -18,6 +18,10 @@ export default class Home extends React.Component {
     this.state = {} //状态管理
     this.nickname = sessionStorage.getItem("nickname")
     this.usertype = sessionStorage.getItem("usertype")
+
+    if(!this.usertype){ // 没有登录
+      this.props.history.push("/login")
+    }
   }
 
   menuItemOnClick(event) {
@@ -25,6 +29,7 @@ export default class Home extends React.Component {
   }
 
   logoutClick = (event) => {
+    sessionStorage.clear()
     this.props.history.push("/login")
   }
 
@@ -54,6 +59,19 @@ export default class Home extends React.Component {
     }
   }
 
+  userManageMenu(){
+    const type = sessionStorage.getItem("usertype")
+    if(type === 'admin'){
+      return (
+          <Menu.Item key="menu5" icon={<UserOutlined />} onClick={this.menuItemOnClick.bind(this)}>
+            User Manage
+          </Menu.Item>
+      )
+    }else{
+      return <></>
+    }
+  }
+
   render() {
     return (
         <div>
@@ -76,9 +94,7 @@ export default class Home extends React.Component {
                     style={{height: '100%', borderRight: 0}}
                 >
                   <SubMenu key="sub1" icon={<LaptopOutlined/>} title="Menu">
-                    <Menu.Item key="menu5" icon={<UserOutlined />} onClick={this.menuItemOnClick.bind(this)}>
-                      User Manage
-                    </Menu.Item>
+                    {this.userManageMenu()}
                     <Menu.Item key="menu1" icon={<ExperimentOutlined />} onClick={this.menuItemOnClick.bind(this)}>
                       Health Check
                     </Menu.Item>

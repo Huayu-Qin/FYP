@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {save} from "../../api";
 import {DatePicker, Button, Col, Form, Input, Modal, Row, Radio,Space, PageHeader,message} from "antd";
 import { PlusCircleOutlined, SearchOutlined } from '@ant-design/icons';
@@ -17,6 +17,11 @@ export default function UserForm(props) {
     form.resetFields()
     setIsModalVisible(true);
   };
+
+  useEffect(()=>{
+    console.log('componentDidMount.....');
+  }, []);
+
 
   const onSubmit = async () => {
     try {
