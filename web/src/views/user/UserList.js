@@ -3,18 +3,18 @@ import {findList, removeById} from "../../api";
 import {Modal, Table, Button, Space} from 'antd';
 import UserForm from './UserForm';
 import styles from './User.module.css'
-import dayjs from "dayjs";
 
 
 export default class UserList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      record:{}
+      record: {},
+      userData: null
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.loadTable()
   }
 
@@ -26,19 +26,27 @@ export default class UserList extends React.Component {
     this.setState(res);
   }
 
-  async onRemoveRecord(_id){
+  async onRemoveRecord(_id) {
     await removeById('/sys/user', _id)
     this.loadTable()
   }
+  onEdit(record){
+    // send to child
+    this.setState({
+      userData: record
+    })
+  }
 
   columns = [
-    {title: 'Id', render:(text,record,index) => `${index+1}` },
-    {title: 'Type', dataIndex: 'type',key: 'type'},
-    {title: 'Nick Name', dataIndex: 'nickname',key: 'name'},
+    {title: 'Id', render: (text, record, index) => `${index + 1}`},
+    {title: 'Type', dataIndex: 'type', key: 'type'},
+    {title: 'Nick Name', dataIndex: 'nickname', key: 'name'},
     {title: 'Username', dataIndex: 'username', key: 'username',},
-    {title: 'Action',render: (text, record) => (
+    {
+      title: 'Action', render: (record) => (
           <Space>
-            <Button type="primary" danger size="small" onClick={e=>{this.onRemoveRecord(record._id)}}>Remove</Button>
+            <Button type="primary" size="small" onClick={()=>{this.onEdit(record)}}>Edit</Button>
+            <Button type="primary" danger size="small" onClick={e => {this.onRemoveRecord(record._id)}}>Remove</Button>
           </Space>
       ),
     },
@@ -47,8 +55,8 @@ export default class UserList extends React.Component {
   render() {
     return (
         <>
-          <UserForm loadTable={this.loadTable} editData={this.editData}/>
-          <Table rowKey="_id" columns={this.columns} dataSource={this.state.data} pagination={ {pageSize: 7} }/>
+          <UserForm loadTable={this.loadTable} userData={this.state.userData}/>
+          <Table rowKey="_id" columns={this.columns} dataSource={this.state.data} pagination={{pageSize: 7}}/>
         </>
     )
   }

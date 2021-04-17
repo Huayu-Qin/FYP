@@ -1,13 +1,13 @@
 import React, {useEffect} from 'react';
 import {save} from "../../api";
-import {DatePicker, Button, Col, Form, Input, Modal, Row, Radio,Space, PageHeader,message} from "antd";
+import {Button, Col, Form, Input, Modal, Row, Radio,Space, PageHeader,message} from "antd";
 import { PlusCircleOutlined, SearchOutlined } from '@ant-design/icons';
 import styles from './User.module.css'
 
-const { RangePicker } = DatePicker;
 // 健康数据表单
 export default function UserForm(props) {
-  const [isModalVisible, setIsModalVisible] = React.useState(false);
+
+  const [modalVisible, setModalVisible] = React.useState(false);
   const [form] = Form.useForm(); // FormInstance
 
   const search = (values) => {
@@ -15,13 +15,20 @@ export default function UserForm(props) {
   }
   const showModal = () => {
     form.resetFields()
-    setIsModalVisible(true);
+    setModalVisible(true);
   };
 
   useEffect(()=>{
-    console.log('componentDidMount.....');
-  }, []);
+    if(props.userData != null){
+      form.setFieldsValue(props.userData);
+      setModalVisible(true);
+    }
 
+  }, [props.userData]);
+
+  const onClose = () => {
+    setModalVisible(false);
+  };
 
   const onSubmit = async () => {
     try {
@@ -30,22 +37,20 @@ export default function UserForm(props) {
         url: '/sys/user',
       }
       Object.assign(formData, data)
-      setIsModalVisible(false);
+
       const res = await save(formData)
-      console.log(res)
       if(res.code == 0){
         message.success("Save success");
         props.loadTable() // refresh table
       }
+      onClose()
 
     } catch (errorInfo) {
 
     }
   };
 
-  const onClose = () => {
-    setIsModalVisible(false);
-  };
+
 
   const layout = {
     labelCol: {
@@ -76,9 +81,12 @@ export default function UserForm(props) {
           </Row>
         </Form>
 
-        <Modal title="User Info" visible={isModalVisible} okText="OK" onOk={onSubmit} onCancel={onClose}>
+        <Modal title="User Info" visible={modalVisible} okText="OK" onOk={onSubmit} onCancel={onClose}>
           <Form form={form} {...layout} name="basic" >
 
+            <Form.Item label="Username" name="_id" hidden={true}>
+              <Input />
+            </Form.Item>
             <Form.Item name="type" label="User Type" initialValue={"admin"} rules={[{required: true, message: 'Please input!'}]}>
               <Radio.Group>
                 <Radio value="admin">Admin</Radio>
@@ -88,7 +96,7 @@ export default function UserForm(props) {
             <Form.Item label="Username" name="username" rules={[{required: true, message: 'Please input!'}]}>
               <Input style={{ width: 200 }}/>
             </Form.Item>
-            <Form.Item label="Password" name="password" initialValue={"male"} rules={[{required: true, message: 'Please input!'}]}>
+            <Form.Item label="Password" name="password" rules={[{required: true, message: 'Please input!'}]}>
               <Input.Password style={{ width: 200 }}/>
             </Form.Item>
             <Form.Item label="Nick Name" name="nickname" rules={[{required: true, message: 'Please input!'}]}>
