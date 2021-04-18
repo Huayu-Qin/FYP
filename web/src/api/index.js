@@ -2,6 +2,7 @@ import fetch from '../config/fetch'
 
 export const login = data => fetch('/login', data, 'POST')
 export const logout = () => fetch('/logout')
+export const changePwd = () => fetch(url, data, 'POST')
 
 export const save = data => fetch(data.url, data, 'POST')
 export const remove = (url, data) => fetch(url, data, 'DELETE')

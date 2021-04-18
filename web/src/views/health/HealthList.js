@@ -1,30 +1,29 @@
 import React from 'react';
-import {findList} from "../../api";
-import {bmiProposal,heartDiseaseProposal,bloodPressureProposal} from "./TextUtil"
-import {Modal, Table, Tag} from 'antd';
+import { findList } from "../../api";
+import { bmiProposal, heartDiseaseProposal, bloodPressureProposal, warn } from "./TextUtil"
+import { Modal, Table, Tag } from 'antd';
 import HealthForm from './HealthForm';
 import styles from './Health.module.css'
 import dayjs from 'dayjs'
-
 
 export default class HealthList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isModalVisible: false,
-      record:{}
+      record: {}
     }
 
     this.api = {
-      action:'/tb/health/report',
+      action: '/health/report',
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.loadTable()
   }
-
-  // 使用arrow function，避免this作用域null
+  //warn
+  // use arrow function，to avoid this. function field null
   loadTable = async (params = {}) => {
     params.url = this.api.action
     params.username = sessionStorage.getItem("username")
@@ -33,18 +32,19 @@ export default class HealthList extends React.Component {
     this.setState(res);
   }
   columns = [
-    {title: 'Id', render:(text,record,index) => `${index+1}` },
-    {title: 'Report No', dataIndex: '_id', key: '_id',render: (text, record, index) => (
-          <>
-            <Tag color="green" key={text}>
-              <a onClick={()=>{this.setState({isModalVisible:true, record});}}>{text}</a>
-            </Tag>
-          </>
+    { title: 'Id', render: (text, record, index) => `${index + 1}` },
+    {
+      title: 'Report No', dataIndex: '_id', key: '_id', render: (text, record, index) => (
+        <>
+          <Tag color="green" key={text}>
+            <a onClick={() => { this.setState({ isModalVisible: true, record }); }}>{text}</a>
+          </Tag>
+        </>
       )
     },
-    {title: 'Name', dataIndex: 'name',key: 'name'},
-    {title: 'Age', dataIndex: 'age', key: 'age',},
-    {title: 'Sex', dataIndex: 'sex', key: 'sex',},
+    { title: 'Name', dataIndex: 'name', key: 'name' },
+    { title: 'Age', dataIndex: 'age', key: 'age', },
+    { title: 'Sex', dataIndex: 'sex', key: 'sex', },
     // {title: 'Smoke', dataIndex: 'smoke', key: 'smoke',},
     // {title: 'Stature(cm)', dataIndex: 'stature', key: 'stature',},
     // {title: 'Weight(kg)', dataIndex: 'weight', key: 'weight',},
@@ -53,186 +53,185 @@ export default class HealthList extends React.Component {
     // {title: 'Cholesterol', dataIndex: 'cholesterol', key: 'cholesterol',},
     // {title: 'HDL-C', dataIndex: 'hdlc', key: 'hdlc',},
     // {title: 'SBP', dataIndex: 'sbp', key: 'sbp',},
-    {title: 'Create Time', dataIndex: 'create_time', key: 'create_time',render: state => (
-          <>
-              {
-                dayjs(state).format('YYYY-MM-DD HH:mm:ss')
-              }
-          </>
+    {
+      title: 'Create Time', dataIndex: 'create_time', key: 'create_time', render: state => (
+        <>
+          {
+            dayjs(state).format('YYYY-MM-DD HH:mm:ss')
+          }
+        </>
       ),
     },
   ];
 
+
   render() {
     return (
-        <>
-          <HealthForm api={this.api} loadTable={this.loadTable}/>
-          <Table rowKey="_id" columns={this.columns} dataSource={this.state.data} pagination={ {pageSize: 7} }/>
+      <>
+        <HealthForm api={this.api} loadTable={this.loadTable} />
+        <Table rowKey="_id" columns={this.columns} dataSource={this.state.data} pagination={{ pageSize: 7 }} />
 
-          <Modal width={800} style={{top:20}}
-                 visible={this.state.isModalVisible}
-                 onCancel={()=>{this.setState({isModalVisible:false});}}
-                 onOk={()=>{this.setState({isModalVisible:false});}}
-          >
-            <div className={styles.report}>
-              <h1 className={styles.center}>Student Health Report</h1>
-              <table border="1" style={{
-                borderCollapse: 'collapse',
-                width:'100%',
-                border:'solid',
-                textAlign:'center',
-                backgroundColor:'rgb(241,248,255)'
-              }}>
-                <tr>
-                  <th>Name</th>
-                  <td colSpan={3}>{this.state.record.name}</td>
-                </tr>
-                <tr>
-                  <th>Age</th>
-                  <td>{this.state.record.age}</td>
-                  <th>Sex</th>
-                  <td>{this.state.record.sex}</td>
-                </tr>
-                <tr>
-                  <th>Smoke</th>
-                  <td>{this.state.record.smoke}</td>
-                  <th>Stature</th>
-                  <td>{this.state.record.stature}cm</td>
-                </tr>
-                <tr>
-                  <th>Weight</th>
-                  <td>{this.state.record.weight}kg</td>
-                  <th>Cholesterol</th>
-                  <td>{this.state.record.cholesterol}</td>
-                </tr>
-                <tr>
-                  <th>High Blood Pressure</th>
-                  <td>{this.state.record.high_blood_pressure}</td>
-                  <th>Low Blood Pressure</th>
-                  <td>{this.state.record.low_blood_pressure}</td>
-                </tr>
-                <tr>
-                  <th>HDL-C</th>
-                  <td>{this.state.record.hdlc}</td>
-                  <th>SBP</th>
-                  <td>{this.state.record.sbp}</td>
-                </tr>
-              </table>
+        <Modal width={800} style={{ top: 20 }}
+          visible={this.state.isModalVisible}
+          onCancel={() => { this.setState({ isModalVisible: false }); }}
+          onOk={() => { this.setState({ isModalVisible: false }); }}
+        >
+          <div className={styles.report}>
+            <h1 className={styles.center}>Student Health Report</h1>
+            <table border="1" style={{
+              borderCollapse: 'collapse',
+              width: '100%',
+              border: 'solid',
+              textAlign: 'center',
+              backgroundColor: 'rgb(241,248,255)'
+            }}>
+              <tr>
+                <th>Name</th>
+                <td colSpan={3}>{this.state.record.name}</td>
+              </tr>
+              <tr>
+                <th>Age</th>
+                <td>{this.state.record.age}</td>
+                <th>Sex</th>
+                <td>{this.state.record.sex}</td>
+              </tr>
+              <tr>
+                <th>Smoke</th>
+                <td>{this.state.record.smoke}</td>
+                <th>Height</th>
+                <td>{this.state.record.stature}cm</td>
+              </tr>
+              <tr>
+                <th>Weight</th>
+                <td>{this.state.record.weight}kg</td>
+                <th>Cholesterol</th>
+                <td>{this.state.record.cholesterol}</td>
+              </tr>
+              <tr>
+                <th>High Blood Pressure</th>
+                <td>{this.state.record.high_blood_pressure}</td>
+                <th>Low Blood Pressure</th>
+                <td>{this.state.record.low_blood_pressure}</td>
+              </tr>
+              <tr>
+                <th>HDL-C</th>
+                <td>{this.state.record.hdlc}</td>
+                <th>SBP</th>
+                <td>{this.state.record.sbp}</td>
+              </tr>
+            </table>
 
-              {/*bmi分析*/}
-              <div className={styles.analysis}>
-                <div className={styles.title}>BMI Analysis</div>
-                <div className={styles.body}>
-                  <div>
-                    <span className={styles.dot}></span>
-                    <span className={styles.text}>
-                      <span>BMI:</span>
-                      <span className={styles.red}>{this.state.record.bmi}</span>
-                    </span>
-                  </div>
-                  <div style={{display:'flex'}}>
-                    <table border="0" style={{borderCollapse: 'collapse', width:'50%', textAlign:'center',}}>
-                      <tr style={{background: 'rgb(141,216,248)'}}>
-                        <th>Body Type</th>
-                        <th>BMI Scope</th>
-                      </tr>
-                      <tr style={{background: 'rgb(204,204,204)'}}>
-                        <td>thinnish</td>
-                        <td>10 ~ 18.4</td>
-                      </tr>
-                      <tr style={{background: 'rgb(102,204,0)'}}>
-                        <td>Normal</td>
-                        <td>18.5 ~ 23.9</td>
-                      </tr>
-                      <tr style={{background: 'rgb(255,255,0)'}}>
-                        <td>Overweight</td>
-                        <td>24.0 ~ 27.9</td>
-                      </tr>
-                      <tr style={{background: 'rgb(255,153,0)'}}>
-                        <td>Fat</td>
-                        <td>28.0 ~ 32.0</td>
-                      </tr>
-                    </table>
-                    <span style={{marginLeft:'30px', width:'50%',wordBreak:'break-all'}}>{bmiProposal(this.state.record.bmi)}</span>
-                  </div>
+            {/*bmi analysis*/}
+            <div className={styles.analysis}>
+              <div className={styles.title}>BMI Analysis</div>
+              <div className={styles.body}>
+                <div>
+                  <span className={styles.text}>
+                    <span>BMI:</span>
+                    <span className={styles.red}>{this.state.record.bmi}</span>
+                  </span>
+                </div>
+                <div style={{ display: 'flex' }}>
+                  <table border="0" style={{ borderCollapse: 'collapse', width: '50%', textAlign: 'center', }}>
+                    <tr style={{ background: 'rgb(141,216,248)' }}>
+                      <th>Body Type</th>
+                      <th>BMI Scope</th>
+                    </tr>
+                    <tr style={{ background: 'rgb(204,204,204)' }}>
+                      <td>thinnish</td>
+                      <td>10 ~ 18.4</td>
+                    </tr>
+                    <tr style={{ background: 'rgb(102,204,0)' }}>
+                      <td>Normal</td>
+                      <td>18.5 ~ 23.9</td>
+                    </tr>
+                    <tr style={{ background: 'rgb(255,255,0)' }}>
+                      <td>Overweight</td>
+                      <td>24.0 ~ 27.9</td>
+                    </tr>
+                    <tr style={{ background: 'rgb(255,153,0)' }}>
+                      <td>Fat</td>
+                      <td>28.0 ~ 32.0</td>
+                    </tr>
+                  </table>
+                  <span style={{ marginLeft: '30px', width: '50%', wordBreak: 'normal' }}>{bmiProposal(this.state.record.bmi)}</span>
                 </div>
               </div>
-
-              {/*冠心病分析*/}
-              <div className={styles.analysis}>
-                <div className={styles.title}>Heart Disease Analysis</div>
-                <div className={styles.body}>
-                  <div>
-                    <span className={styles.dot}></span>
-                    <span className={styles.text}>
-                      <span>Total score:</span>
-                      <span className={styles.red}>{this.state.record.heart_disease_score}</span>
-                      <span>Risk: </span>
-                      <span className={styles.red}>{this.state.record.heart_disease_probability}</span></span>
-                  </div>
-                  <div style={{display:'flex'}}>
-                    <table border="0" style={{borderCollapse: 'collapse', width:'50%', textAlign:'center',}}>
-                      <tr style={{background: 'rgb(141,216,248)'}}>
-                        <th>Total score</th>
-                        <th>Risk</th>
-                      </tr>
-                      <tr style={{background: 'rgb(204,204,204)'}}>
-                        <td>0~4</td>
-                        <td>1%</td>
-                      </tr>
-                      <tr style={{background: 'rgb(102,204,0)'}}>
-                        <td>5~6</td>
-                        <td>2%</td>
-                      </tr>
-                      <tr style={{background: 'rgb(255,255,0)'}}>
-                        <td>7~16</td>
-                        <td>3%~25%</td>
-                      </tr>
-                      <tr style={{background: 'rgb(255,153,0)'}}>
-                        <td>27+</td>
-                        <td>30%+</td>
-                      </tr>
-                    </table>
-                    <span style={{marginLeft:'30px', width:'50%',wordBreak:'break-all'}}>{heartDiseaseProposal(this.state.record.heartDiseaseScore)}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/*高血压分析*/}
-              <div className={styles.analysis}>
-                <div className={styles.title}>Blood Pressure Analysis</div>
-                <div className={styles.body}>
-                  <div>
-                    <span className={styles.dot}></span>
-                    <span className={styles.text}>
-                      <span>Blood Pressure:</span>
-                      <span className={styles.red}>{this.state.record.low_blood_pressure}~{this.state.record.high_blood_pressure}</span>
-                    </span>
-                  </div>
-                  <div style={{display:'flex'}}>
-                    <table border="0" style={{borderCollapse: 'collapse', width:'50%', textAlign:'center',}}>
-                      <tr style={{background: 'rgb(141,216,248)'}}>
-                        <th>Normal Scope</th>
-                        <th>Result</th>
-                      </tr>
-                      <tr style={{background: 'rgb(204,204,204)'}}>
-                        <td>60~90</td>
-                        <td>Low Blood Pressure Normal</td>
-                      </tr>
-                      <tr style={{background: 'rgb(102,204,0)'}}>
-                        <td>120~150</td>
-                        <td>High Blood Pressure Normal</td>
-                      </tr>
-                    </table>
-                    <span style={{marginLeft:'30px', width:'50%',wordBreak:'break-all'}}>{bloodPressureProposal(this.state.record.bmi)}</span>
-                  </div>
-                </div>
-              </div>
-
             </div>
 
-          </Modal>
-        </>
+            {/*coronary heart disease*/}
+            <div className={styles.analysis}>
+              <div className={styles.title}>Heart Disease Analysis</div>
+              <div className={styles.body}>
+                <div>
+                  <span className={styles.text}>
+                    <span>Total score:</span>
+                    <span className={styles.red}>{this.state.record.heart_disease_score}</span>
+                    <span>Risk: </span>
+                    <span className={styles.red}>{this.state.record.heart_disease_probability}</span></span>
+                </div>
+                <div style={{ display: 'flex' }}>
+                  <table border="0" style={{ borderCollapse: 'collapse', width: '50%', textAlign: 'center', }}>
+                    <tr style={{ background: 'rgb(141,216,248)' }}>
+                      <th>Total score</th>
+                      <th>Risk</th>
+                    </tr>
+                    <tr style={{ background: 'rgb(204,204,204)' }}>
+                      <td>0~4</td>
+                      <td>1%</td>
+                    </tr>
+                    <tr style={{ background: 'rgb(102,204,0)' }}>
+                      <td>5~6</td>
+                      <td>2%</td>
+                    </tr>
+                    <tr style={{ background: 'rgb(255,255,0)' }}>
+                      <td>7~16</td>
+                      <td>3%~25%</td>
+                    </tr>
+                    <tr style={{ background: 'rgb(255,153,0)' }}>
+                      <td>27+</td>
+                      <td>30%+</td>
+                    </tr>
+                  </table>
+                  <span style={{ marginLeft: '30px', width: '50%', wordBreak: 'normal' }}>{heartDiseaseProposal(this.state.record.heart_disease_score)}</span>
+                </div>
+              </div>
+            </div>
+
+            {/*high blood pressure analysis*/}
+            <div className={styles.analysis}>
+              <div className={styles.title}>Blood Pressure Analysis</div>
+              <div className={styles.body}>
+                <div>
+                  <span className={styles.dot}></span>
+                  <span className={styles.text}>
+                    <span>Blood Pressure:</span>
+                    <span className={styles.red}>{this.state.record.low_blood_pressure}~{this.state.record.high_blood_pressure} {warn(this.state.record.high_blood_pressure, this.state.record.low_blood_pressure)}</span>
+                  </span>                  </div>
+                <div style={{ display: 'flex' }}>
+                  <table border="0" style={{ borderCollapse: 'collapse', width: '50%', textAlign: 'center', }}>
+                    <tr style={{ background: 'rgb(141,216,248)' }}>
+                      <th>Normal Scope</th>
+                      <th>Result</th>
+                    </tr>
+                    <tr style={{ background: 'rgb(204,204,204)' }}>
+                      <td>60~90</td>
+                      <td>Low Blood Pressure Normal</td>
+                    </tr>
+                    <tr style={{ background: 'rgb(102,204,0)' }}>
+                      <td>120~150</td>
+                      <td>High Blood Pressure Normal</td>
+                    </tr>
+                  </table>
+                  <span style={{ marginLeft: '30px', width: '50%', wordBreak: 'normal' }}>{bloodPressureProposal(this.state.record.high_blood_pressure, this.state.record.low_blood_pressure)}</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </Modal>
+      </>
     )
   }
 }

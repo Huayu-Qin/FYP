@@ -4,7 +4,7 @@ import {Button, Col, Form, Input, Modal, Row, Radio,Space, PageHeader,message} f
 import { PlusCircleOutlined, SearchOutlined } from '@ant-design/icons';
 import styles from './User.module.css'
 
-// 健康数据表单
+
 export default function UserForm(props) {
 
   const [modalVisible, setModalVisible] = React.useState(false);
@@ -90,7 +90,7 @@ export default function UserForm(props) {
             <Form.Item name="type" label="User Type" initialValue={"admin"} rules={[{required: true, message: 'Please input!'}]}>
               <Radio.Group>
                 <Radio value="admin">Admin</Radio>
-                <Radio value="customer">Customer</Radio>
+                <Radio value="user">User</Radio>
               </Radio.Group>
             </Form.Item>
             <Form.Item label="Username" name="username" rules={[{required: true, message: 'Please input!'}]}>

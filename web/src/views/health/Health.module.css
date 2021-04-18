@@ -36,7 +36,6 @@
 .analysis .text span{
     margin:4px;
 }
-
 .report{
 }
 .report th,.report td{
@@ -48,4 +47,8 @@
 }
 .red{
     color:red;
+}
+.warn{
+    color:red;
+    font-weight: 600;
 }
