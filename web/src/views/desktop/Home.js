@@ -92,7 +92,7 @@ export default class Home extends React.Component {
     const type = sessionStorage.getItem("usertype")
     if (type === 'admin') {
       return (
-        <Menu.Item key="menu5" icon={<ContactsOutlined />} onClick={this.menuItemOnClick.bind(this)}>
+        <Menu.Item key="menu5" id="UserManage"icon={<ContactsOutlined />} onClick={this.menuItemOnClick.bind(this)}>
           User Manage
         </Menu.Item>
       )
@@ -124,31 +124,31 @@ export default class Home extends React.Component {
                   defaultOpenKeys={['sub1']}
                   style={{ height: '100%', borderRight: 0 }}
                 >
-                  <SubMenu key="sub1" icon={<LaptopOutlined />} title="Health Care Center">
-                    <Menu.Item key="menu1" icon={<ExperimentOutlined />} onClick={this.menuItemOnClick.bind(this)}>
-                      Body health
+                  <SubMenu key="sub1" id="sub1" icon={<LaptopOutlined />} title="Health Care Center">
+                    <Menu.Item key="menu1" id="BodyHealth" icon={<ExperimentOutlined />} onClick={this.menuItemOnClick.bind(this)}>
+                      Body Health
                     </Menu.Item>
-                    <Menu.Item key="menu7" icon={<CoffeeOutlined />} onClick={this.menuItemOnClick.bind(this)}>
-                      Life health
+                    <Menu.Item key="menu7" id="LifeHealth" icon={<CoffeeOutlined />} onClick={this.menuItemOnClick.bind(this)}>
+                      Life Health
                     </Menu.Item>
-                    <Menu.Item key="menu6" icon={<HistoryOutlined />} onClick={this.menuItemOnClick.bind(this)}>
-                      Health tracking
+                    <Menu.Item key="menu6" id="HealthTracking" icon={<HistoryOutlined />} onClick={this.menuItemOnClick.bind(this)}>
+                      Health Tracking
                     </Menu.Item>
-                    <Menu.Item key="menu3" icon={<MessageOutlined />} onClick={this.menuItemOnClick.bind(this)}>
+                    <Menu.Item key="menu3" id="DoctorContact" icon={<MessageOutlined />} onClick={this.menuItemOnClick.bind(this)}>
                       Doctor Contact
                     </Menu.Item>
-                    <Menu.Item key="menu4" icon={<ProfileOutlined />} onClick={this.menuItemOnClick.bind(this)}>
-                      Health news
+                    <Menu.Item key="menu4" id="HealthNews" icon={<ProfileOutlined />} onClick={this.menuItemOnClick.bind(this)}>
+                      Health News
                     </Menu.Item>
                   </SubMenu>
-                  <SubMenu key="sub2" icon={<MedicineBoxOutlined />} title="Covid-19 Center">
-                    <Menu.Item key="menu2" icon={<LineChartOutlined />} onClick={this.menuItemOnClick.bind(this)}>
+                  <SubMenu key="sub2" id="sub2" icon={<MedicineBoxOutlined />} title="Covid-19 Center">
+                    <Menu.Item key="menu2" id="COVID-19Analysis" icon={<LineChartOutlined />} onClick={this.menuItemOnClick.bind(this)}>
                       COVID-19 Analysis
                     </Menu.Item>
                   </SubMenu>
 
-                  <SubMenu key="sub3" icon={<UserOutlined />} title="Life Center">
-                    <Menu.Item key="menu8" icon={<CalendarOutlined />} onClick={this.menuItemOnClick.bind(this)}>
+                  <SubMenu key="sub3" id="sub3" icon={<UserOutlined />} title="Life Center">
+                    <Menu.Item key="menu8" id="Calendar" icon={<CalendarOutlined />} onClick={this.menuItemOnClick.bind(this)}>
                       Calendar
                     </Menu.Item>
                     {this.userManageMenu()}
